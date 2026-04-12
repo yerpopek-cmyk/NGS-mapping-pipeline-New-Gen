@@ -39,26 +39,39 @@ ngs-mapping-pipeline/
 
 ## 🚀 Быстрый старт
 
-```bash
-# 1. Клонировать репозиторий
-git clone https://github.com/yourname/ngs-mapping-pipeline.git
+# 1. Получение файлов (с правильной ссылкой на репозиторий)
+git clone https://github.com/NGS-mapping-pipeline-New-Gen/ngs-mapping-pipeline.git
 cd ngs-mapping-pipeline
 
-# 2. Создать conda-окружения
+# 2. Создание conda-окружений (выполняется один раз)
 conda env create -f envs/mapping.yml
 conda env create -f envs/qc.yml
 
-# 3. Запустить пайплайн (E. coli WGS, шаг за шагом)
+# --- ПОДГОТОВКА СИСТЕМЫ ---
+# Инициализируем Conda в терминале (если это не было сделано ранее)
+conda init bash
+source ~/.bashrc
+
+# 3. Запуск пайплайна (E. coli WGS)
+
+# Загрузка данных (обычно не требует специфичного окружения)
 bash scripts/00_download.sh
+
+# Этап 1: Оценка качества сырых данных
+conda activate qc
 bash scripts/01_qc_raw.sh
+
+# Этап 2: Выравнивание и обработка (Требует BWA, Samtools, Picard)
+conda activate mapping
 bash scripts/02_index.sh
 bash scripts/03_align.sh
 bash scripts/04_sam_to_bam.sh
 bash scripts/05_markdup.sh
 bash scripts/06_qc_mapping.sh
-bash scripts/08_multiqc.sh
-```
 
+# Этап 3: Финальный отчет
+conda activate qc
+bash scripts/08_multiqc.sh
 ---
 
 ## 🗺 Схема пайплайна
