@@ -69,8 +69,11 @@ bash scripts/04_sam_to_bam.sh
 bash scripts/05_markdup.sh
 bash scripts/06_qc_mapping.sh
 
+
+
 # Этап 3: Финальный отчет
 conda activate qc
+bash scripts/07_rnaseq.sh
 bash scripts/08_multiqc.sh
 ```
 
