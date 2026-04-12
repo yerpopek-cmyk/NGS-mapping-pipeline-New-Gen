@@ -1,3 +1,4 @@
+cat > envs/mapping.yml << 'EOF'
 name: mapping
 channels:
   - bioconda
@@ -7,9 +8,11 @@ dependencies:
   - python=3.10
   - bwa-mem2=2.2.1
   - hisat2=2.2.1
-  - star=2.7.11a
   - samtools=1.18
   - htslib=1.18
+EOF
+
+cat > envs/qc.yml << 'EOF'
 name: qc
 channels:
   - bioconda
@@ -21,8 +24,4 @@ dependencies:
   - multiqc=1.15
   - picard=3.1.0
   - mosdepth=0.3.3
-  - preseq=3.2.0
-  - rseqc=5.0.3
-  - qualimap=2.3
-  - ucsc-gtftogenepred
-  - ucsc-genepredtobed
+EOF
