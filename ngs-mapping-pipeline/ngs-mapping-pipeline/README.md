@@ -37,8 +37,8 @@ ngs-mapping-pipeline/
 
 ---
 
-## 🚀 Быстрый старт
-
+🚀 Быстрый старт
+```bash
 # 1. Получение файлов (с правильной ссылкой на репозиторий)
 git clone https://github.com/NGS-mapping-pipeline-New-Gen/ngs-mapping-pipeline.git
 cd ngs-mapping-pipeline
@@ -72,6 +72,8 @@ bash scripts/06_qc_mapping.sh
 # Этап 3: Финальный отчет
 conda activate qc
 bash scripts/08_multiqc.sh
+```
+
 ---
 
 ## 🗺 Схема пайплайна
