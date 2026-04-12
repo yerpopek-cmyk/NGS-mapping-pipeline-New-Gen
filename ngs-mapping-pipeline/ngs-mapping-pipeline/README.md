@@ -39,41 +39,47 @@ ngs-mapping-pipeline/
 
 🚀 Быстрый старт
 ```bash
-# 1. Получение файлов (с правильной ссылкой на репозиторий)
+# 🧬 NGS Mapping Pipeline (E. coli WGS)
+
+# 1. Получение файлов
 git clone https://github.com/NGS-mapping-pipeline-New-Gen/ngs-mapping-pipeline.git
 cd ngs-mapping-pipeline
 
 # 2. Создание conda-окружений (выполняется один раз)
+# Убедитесь, что в mapping.yml нет дубликатов ключа 'name'
 conda env create -f envs/mapping.yml
 conda env create -f envs/qc.yml
 
 # --- ПОДГОТОВКА СИСТЕМЫ ---
-# Инициализируем Conda в терминале (если это не было сделано ранее)
+# Инициализация Conda для текущей оболочки
 conda init bash
 source ~/.bashrc
 
-# 3. Запуск пайплайна (E. coli WGS)
+# 3. Запуск пайплайна
 
-# Загрузка данных (обычно не требует специфичного окружения)
+# Загрузка данных
 bash scripts/00_download.sh
 
 # Этап 1: Оценка качества сырых данных
 conda activate qc
 bash scripts/01_qc_raw.sh
 
-# Этап 2: Выравнивание и обработка (Требует BWA, Samtools, Picard)
+# Этап 2: Выравнивание и обработка
+# ВАЖНО: Если скрипты выдают ошибку активации, убедитесь, что в начале .sh файлов 
+# прописано: source ~/anaconda3/etc/profile.d/conda.sh
 conda activate mapping
+
 bash scripts/02_index.sh
 bash scripts/03_align.sh
 bash scripts/04_sam_to_bam.sh
-bash scripts/05_markdup.sh
+bash scripts/05_markdup.sh       # Теперь найдет файл _sorted.bam
 bash scripts/06_qc_mapping.sh
 
-
-
-# Этап 3: Финальный отчет
+# Этап 3: Дополнительный QC и Финальный отчет
 conda activate qc
-bash scripts/07_rnaseq.sh
+
+# Исправлено имя файла (добавлено _qc)
+bash scripts/07_rnaseq_qc.sh     
 bash scripts/08_multiqc.sh
 ```
 
